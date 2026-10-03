@@ -2,8 +2,8 @@
   "lmstudio_url": "http://localhost:1234/v1/chat/completions",
   "model": "qwen3.6-35b-a3b-mtp",
   "trigger": "@",
-  "temperature": 0.7,
-  "max_tokens": 2048,
+  "temperature": null,
+  "max_tokens": null,
   "system_prompt": "Eres un asistente util. Respondé de forma clara y concisa.",
   "ascii_only": true,
 
