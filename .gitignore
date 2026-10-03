@@ -1,0 +1,19 @@
+# Python compilado
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Entornos virtuales
+venv/
+.env/
+
+# Logs del proyecto
+focus-writer.log
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+Desktop.ini
