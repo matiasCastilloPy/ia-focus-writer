@@ -227,15 +227,15 @@ def type_text_slowly(text, pause=0.003):
 
 def type_text_with_newlines(text, newline_hotkey=('shift', 'enter'), pause=0.003):
     """Escribe texto con saltos de linea sin enviar (Shift+Enter).
-    Ideal para WhatsApp Web, Gmail, etc donde Enter envia el mensaje."""
+    Usa paste para cero riesgo de freeze en cualquier longitud."""
     parts = text.split('\n')
     for i, part in enumerate(parts):
         if i > 0:
-            # No pause entre partes al hacer Shift+Enter
             pyautogui.hotkey(*newline_hotkey)
             time.sleep(0.02)
-        if part:  # Evita escribir lineas vacias
-            pyautogui.typewrite(part, interval=pause)
+        if part:
+            set_clipboard_text(part)
+            pyautogui.hotkey('ctrl', 'v')
 
 
 def strip_accents(text):
