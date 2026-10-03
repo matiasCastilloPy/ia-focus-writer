@@ -304,25 +304,29 @@ def resolve_system_prompt(config, modifier_text):
 # ─── Lógica de IA ──────────────────────────────────────────────
 
 def call_lm_studio(system_prompt, user_message, config):
-    """Envia el prompt a LM Studio y devuelve la respuesta."""
+    """Envia el prompt al proveedor de IA y devuelve la respuesta."""
     url = config["lmstudio_url"].rstrip("/")
-    model = config.get("model") or None
     
     payload = {
         "messages": [
             {"role": "system", "content": system_prompt},
             {"role": "user", "content": user_message}
         ],
-        "temperature": config.get("temperature", 0.7),
-        "max_tokens": config.get("max_tokens", 2048),
         "stream": False,
     }
     
-    # Agregar reasoning_effort si tiene un valor valido
+    # Solo enviar si el usuario lo configuró explícitamente (usa default del proveedor)
+    if config.get("temperature") is not None:
+        payload["temperature"] = config["temperature"]
+    if config.get("max_tokens") is not None:
+        payload["max_tokens"] = config["max_tokens"]
+    
+    # Agregar reasoning_effort si tiene un valor valido (LM Studio)
     effort = config.get("reasoning_effort")
     if effort:
         payload["reasoning_effort"] = effort
     
+    model = config.get("model") or None
     if model:
         payload["model"] = model
     
